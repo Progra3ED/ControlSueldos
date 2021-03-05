@@ -74,5 +74,46 @@ namespace ControlSueldos
             dataGridViewAsistencia.Refresh();
 
         }
+
+        private void buttonCalcular_Click(object sender, EventArgs e)
+        {
+            //Como el calculo de sueldo solo se usaran en este botón 
+            //la lista de EmpleadoSueldo se puede declara localmente
+            List<EmpleadoSueldo> empleadoSueldos = new List<EmpleadoSueldo>();
+
+
+            //Un ciclo para recorrer la lista de empleados
+            for (int i = 0; i < empleados.Count; i++)
+            {            
+                //Por cada empleado que se recorre
+                //se recorre la lista de asistencias para buscar sus asistencias
+                for (int j = 0; j < asistencias.Count; j++)
+                {
+                    //ver si el numero del empleado es igual al 
+                    //numero del empleado en la asistencia                    
+                    if (empleados[i].NoEmpleado == asistencias[j].NoEmpleado)
+                    {
+                        //creamos un objeto empleadoSueldo de la clase Empleadosueldo
+                        //para guardar los datos del sueldo e irlos metiendo a una lista
+                        EmpleadoSueldo empleadoSueldo = new EmpleadoSueldo();
+                        //guardamos el número de empleado
+                        empleadoSueldo.NoEmpleado = empleados[i].NoEmpleado;
+                        //guardamos el nombre del empleado
+                        empleadoSueldo.NombreEmpleado = empleados[i].Nombre;
+                        //calculamos el sueldo correspondiente
+                        //el sueldo por hora en empleado x las horas trabajadas en la asistencia
+                        empleadoSueldo.SueldoMes = empleados[i].SueldoHora * asistencias[j].HorasMes;
+                        empleadoSueldo.Mes = asistencias[j].Mes;
+
+                        //Guardamos en la lista 
+                        empleadoSueldos.Add(empleadoSueldo);
+                    }
+                }
+            }
+            //Mostrar en el gridview la lista de empleadoSueldos
+            dataGridViewSueldo.DataSource = null;
+            dataGridViewSueldo.DataSource = empleadoSueldos;
+            dataGridViewSueldo.Refresh();
+        }
     }
 }
