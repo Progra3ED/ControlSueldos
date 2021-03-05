@@ -16,6 +16,8 @@ namespace ControlSueldos
         List<Empleado> empleados = new List<Empleado>();
         List<Asistencia> asistencias = new List<Asistencia>();
 
+        List<EmpleadoSueldo> empleadoSueldos = new List<EmpleadoSueldo>();
+
 
         public Form1()
         {
@@ -40,7 +42,7 @@ namespace ControlSueldos
                 empleado.Nombre = reader.ReadLine();
                 empleado.SueldoHora = float.Parse(reader.ReadLine());
 
-            empleados.Add(empleado);
+                empleados.Add(empleado);
 
             }            
             reader.Close();
@@ -69,6 +71,12 @@ namespace ControlSueldos
             dataGridViewEmpleado.DataSource = empleados;
             dataGridViewEmpleado.Refresh();
 
+            comboBox1.DisplayMember = "Nombre";
+            comboBox1.ValueMember = "NoEmpleado";
+            comboBox1.DataSource = null;
+            comboBox1.DataSource = empleados;
+            comboBox1.Refresh();
+
             dataGridViewAsistencia.DataSource = null;
             dataGridViewAsistencia.DataSource = asistencias;
             dataGridViewAsistencia.Refresh();
@@ -79,7 +87,7 @@ namespace ControlSueldos
         {
             //Como el calculo de sueldo solo se usaran en este botón 
             //la lista de EmpleadoSueldo se puede declara localmente
-            List<EmpleadoSueldo> empleadoSueldos = new List<EmpleadoSueldo>();
+           
 
 
             //Un ciclo para recorrer la lista de empleados
@@ -114,6 +122,20 @@ namespace ControlSueldos
             dataGridViewSueldo.DataSource = null;
             dataGridViewSueldo.DataSource = empleadoSueldos;
             dataGridViewSueldo.Refresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int noEmpleado = Convert.ToInt32 (comboBox1.SelectedValue);
+
+            EmpleadoSueldo empleadoSueldo = empleadoSueldos.Find(s => s.NoEmpleado == noEmpleado);
+
+            labelNombre.Text = empleadoSueldo.NombreEmpleado;
+            labelSueldo.Text = empleadoSueldo.SueldoMes.ToString();
+            labelMes.Text = empleadoSueldo.Mes;
+
+
+
         }
     }
 }
