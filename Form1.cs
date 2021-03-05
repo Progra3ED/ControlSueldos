@@ -41,7 +41,7 @@ namespace ControlSueldos
                 empleado.NoEmpleado = Convert.ToInt32 (reader.ReadLine());
                 empleado.Nombre = reader.ReadLine();
                 empleado.SueldoHora = float.Parse(reader.ReadLine());
-
+                
                 empleados.Add(empleado);
 
             }            
@@ -71,16 +71,19 @@ namespace ControlSueldos
             dataGridViewEmpleado.DataSource = empleados;
             dataGridViewEmpleado.Refresh();
 
-            comboBox1.DisplayMember = "Nombre";
-            comboBox1.ValueMember = "NoEmpleado";
-            comboBox1.DataSource = null;
-            comboBox1.DataSource = empleados;
-            comboBox1.Refresh();
+            
 
             dataGridViewAsistencia.DataSource = null;
             dataGridViewAsistencia.DataSource = asistencias;
             dataGridViewAsistencia.Refresh();
 
+
+            comboBox1.DisplayMember = "Nombre";
+            comboBox1.ValueMember = "NoEmpleado";
+
+            comboBox1.DataSource = null;
+            comboBox1.DataSource = empleados;
+            comboBox1.Refresh();
         }
 
         private void buttonCalcular_Click(object sender, EventArgs e)
